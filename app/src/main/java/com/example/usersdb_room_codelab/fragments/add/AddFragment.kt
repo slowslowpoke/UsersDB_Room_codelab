@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.usersdb_room_codelab.data.User
-import com.example.usersdb_room_codelab.data.UserViewModel
+import com.example.usersdb_room_codelab.model.User
+import com.example.usersdb_room_codelab.viewmodel.UserViewModel
 import com.example.usersdb_room_codelab.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
@@ -32,12 +32,6 @@ class AddFragment : Fragment() {
         ///!!!вот тут как бы гугл советует такие вещи делать уже в onViewCreated... проверить потом. но пока работает
         binding.btnAddUser.setOnClickListener { insertUserToDatabase() }
         return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     private fun insertUserToDatabase() {

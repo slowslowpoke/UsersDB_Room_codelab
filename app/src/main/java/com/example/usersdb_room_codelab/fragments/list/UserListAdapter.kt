@@ -2,8 +2,9 @@ package com.example.usersdb_room_codelab.fragments.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.usersdb_room_codelab.data.User
+import com.example.usersdb_room_codelab.model.User
 import com.example.usersdb_room_codelab.databinding.UserListItemBinding
 
 class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
@@ -18,6 +19,12 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
                 tvFirstName.text = user.firstName
                 tvLastName.text = user.lastName
                 tvAge.text = user.age.toString()
+                clUserListRow.setOnClickListener{
+                    val action = ListFragmentDirections.actionListFragmentToUpdateFragment(user)
+                    itemView.findNavController().navigate(action)
+
+                }
+
             }
         }
     }

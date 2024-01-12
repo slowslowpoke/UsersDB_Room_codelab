@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">UsersDB_Room_codelab</string>
+    <string name="app_name">Users DB</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="age">Age</string>
     <string name="add_user">Add User</string>
+    <string name="update">Update</string>
 </resources>

@@ -1,9 +1,12 @@
-package com.example.usersdb_room_codelab.data
+package com.example.usersdb_room_codelab.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.usersdb_room_codelab.data.UserDatabase
+import com.example.usersdb_room_codelab.model.User
+import com.example.usersdb_room_codelab.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,9 +20,15 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         allData = repository.allData
         }
 
-    fun addUser(user: User){
+    fun addUser(newUser: User){
         viewModelScope.launch(Dispatchers.IO){
-            repository.addUser(user)
+            repository.addUser(newUser)
+        }
+    }
+
+    fun updateUser(updatedUser: User){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateUser(updatedUser)
         }
     }
 

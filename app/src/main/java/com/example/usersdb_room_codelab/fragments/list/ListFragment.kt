@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.usersdb_room_codelab.data.UserViewModel
+import com.example.usersdb_room_codelab.viewmodel.UserViewModel
 import com.example.usersdb_room_codelab.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -47,7 +47,7 @@ class ListFragment : Fragment() {
 
 
         //ViewModel
-        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         mUserViewModel.allData.observe(
             viewLifecycleOwner
         ) { userList -> adapter.setData(userList) }
