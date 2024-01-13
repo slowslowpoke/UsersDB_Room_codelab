@@ -1,7 +1,11 @@
 package com.example.usersdb_room_codelab.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -9,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.usersdb_room_codelab.R
 import com.example.usersdb_room_codelab.databinding.FragmentUpdateBinding
 import com.example.usersdb_room_codelab.model.User
 import com.example.usersdb_room_codelab.viewmodel.UserViewModel
@@ -39,9 +44,33 @@ class UpdateFragment : Fragment() {
             btnUpdateUser.setOnClickListener { updateUser() }
         }
 
-
+        setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_delete) {
+            deleteUser()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteUser() {
+        val userToDelete = args.currentUser.firstName
+        AlertDialog.Builder(requireContext())
+            .setTitle("Delete $userToDelete")
+            .setMessage("Are you sure you want to delete $userToDelete?")
+            .setNegativeButton("No") { _, _ -> }
+            .setPositiveButton("Yes"){_, _ ->
+                mViewModel.deleteUser(args.currentUser)
+                Toast.makeText(requireContext(), "$userToDelete deleted", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(UpdateFragmentDirections.actionUpdateFragmentToListFragment())}
+            .create().show()
     }
 
     private fun updateUser() {
