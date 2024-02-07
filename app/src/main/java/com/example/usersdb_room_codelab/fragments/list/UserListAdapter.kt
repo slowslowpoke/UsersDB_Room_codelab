@@ -13,9 +13,9 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
 
     class UserViewHolder(private val binding: UserListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User) {
+        fun bind(user: User, position: Int) {
             binding.apply {
-                tvId.text = user.id.toString()
+                tvId.text = position.toString()
                 tvFirstName.text = user.firstName
                 tvLastName.text = user.lastName
                 tvAge.text = user.age.toString()
@@ -44,7 +44,7 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val currentUser = mUserList[position]
-        holder.bind(currentUser)
+        holder.bind(currentUser, position)
 
 
     }
