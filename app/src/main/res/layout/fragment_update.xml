@@ -37,29 +37,46 @@
         android:inputType="textPersonName"
         android:minHeight="48dp" />
 
+
     <EditText
         android:id="@+id/et_updateAge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_updateLastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:importantForAutofill="no"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/age"
-        android:importantForAutofill="no"
+        android:minHeight="48dp"
         android:inputType="number"
-        android:minHeight="48dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_updateLastName" />
+
+
+    <EditText
+        android:id="@+id/et_updatePosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/position"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_updateAge" />
 
     <Button
         android:id="@+id/btn_updateUser"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_updateAge"
+        android:text="Update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/update" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_updatePosition" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
