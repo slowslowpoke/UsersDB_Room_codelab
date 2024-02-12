@@ -41,6 +41,7 @@ class UpdateFragment : Fragment() {
             etUpdateFirstName.setText(currentUser.firstName)
             etUpdateLastName.setText(currentUser.lastName)
             etUpdateAge.setText(currentUser.age.toString())
+            etUpdatePosition.setText(currentUser.position)
             btnUpdateUser.setOnClickListener { updateUser() }
         }
 
@@ -77,14 +78,16 @@ class UpdateFragment : Fragment() {
         val firstName: String
         val lastName: String
         val age: Int
+        val position: String
 
         // опять же тут тоже неплохо бы добавить проверочку на соответствие...
         binding.apply {
             firstName = etUpdateFirstName.text.toString()
             lastName = etUpdateLastName.text.toString()
             age = Integer.parseInt(etUpdateAge.text.toString())
+            position = etUpdatePosition.text.toString()
         }
-        val updatedUser = User(args.currentUser.id, firstName, lastName, age)
+        val updatedUser = User(args.currentUser.id, firstName, lastName, age, position)
         mViewModel.updateUser(updatedUser)
         Toast.makeText(requireContext(), "User updated", Toast.LENGTH_SHORT).show()
         val action = UpdateFragmentDirections.actionUpdateFragmentToListFragment()

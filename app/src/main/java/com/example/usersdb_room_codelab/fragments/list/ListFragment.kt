@@ -12,18 +12,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.usersdb_room_codelab.R
 import com.example.usersdb_room_codelab.viewmodel.UserViewModel
 import com.example.usersdb_room_codelab.databinding.FragmentListBinding
+import com.google.android.material.snackbar.Snackbar
 
 class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
-    private lateinit var mUserViewModel: UserViewModel
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var userListAdapter: UserListAdapter
 
 
     override fun onCreateView(
@@ -46,18 +48,50 @@ class ListFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        //RecyclerView
-        recyclerView = binding.recyclerView
-        val adapter =  UserListAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        setupAdapter()
 
+        val itemTouchHelpCallback = object: ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return true
+            }
 
-        //ViewModel
-        mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-        mUserViewModel.allData.observe(
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val user = userListAdapter.differ.currentList[position]
+                userViewModel.deleteUser(user)
+                Snackbar.make(view, "User deleted", Snackbar.LENGTH_LONG).apply{
+                    setAction("Undo"){
+                        userViewModel.addUser(user)
+                    }
+                    show()
+                }
+            }
+
+        }
+
+        ItemTouchHelper(itemTouchHelpCallback).attachToRecyclerView(binding.recyclerView)
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        userViewModel.allData.observe(
             viewLifecycleOwner
-        ) { userList -> adapter.setData(userList) }
+        ) { userList -> userListAdapter.differ.submitList(userList) }
+
+
+    }
+
+    private fun setupAdapter() {
+        userListAdapter = UserListAdapter()
+        binding.recyclerView.apply{
+            adapter = userListAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+
     }
 
 
@@ -78,7 +112,7 @@ class ListFragment : Fragment() {
             .setMessage("Are you sure you want to delete all users?")
             .setNegativeButton("No") { _, _ -> }
             .setPositiveButton("Yes"){_, _ ->
-                mUserViewModel.deleteAllUsers()
+                userViewModel.deleteAllUsers()
                 Toast.makeText(requireContext(), "All users deleted", Toast.LENGTH_SHORT).show()}
             .create().show()
     }

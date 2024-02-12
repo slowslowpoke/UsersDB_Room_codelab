@@ -1,6 +1,7 @@
 package com.example.usersdb_room_codelab.fragments.add
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,9 +39,11 @@ class AddFragment : Fragment() {
         val firstName = binding.etAddFirstName.text.toString()
         val lastName = binding.etAddLastName.text.toString()
         val age = Integer.parseInt(binding.etAddAge.text.toString())
+        val position = binding.etAddPosition.text.toString()
 // Надо бы добавить проверку на правильность введенных данных...
 
-        val newUser = User(0, firstName, lastName, age)
+        val newUser = User(0, firstName, lastName, age, position)
+        Log.d("ADD FRAGMENT", newUser.toString())
         mViewModel.addUser(newUser)
         Toast.makeText(requireContext(), "Successfully added a user", Toast.LENGTH_SHORT).show()
         val action = AddFragmentDirections.actionAddFragmentToListFragment()
