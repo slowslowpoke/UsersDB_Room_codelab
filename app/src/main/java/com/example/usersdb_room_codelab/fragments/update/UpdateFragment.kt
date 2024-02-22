@@ -24,7 +24,7 @@ class UpdateFragment : Fragment() {
     private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
 
-    private val args by navArgs<UpdateFragmentArgs>()
+    private val args: UpdateFragmentArgs by navArgs()
 
     private lateinit var mViewModel: UserViewModel
 

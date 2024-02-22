@@ -53,7 +53,7 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
 
-    //LifeCycle. Тут много чего можно подобовлять еще типа LiveData, но мне нужна только вьюмодель
+    //LifeCycle. Тут много чего можно подобавлять еще типа LiveData, но мне нужна только вьюмодель
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 

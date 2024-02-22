@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.usersdb_room_codelab.R
-import com.example.usersdb_room_codelab.viewmodel.UserViewModel
 import com.example.usersdb_room_codelab.databinding.FragmentListBinding
+import com.example.usersdb_room_codelab.viewmodel.UserViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class ListFragment : Fragment() {
@@ -50,10 +50,10 @@ class ListFragment : Fragment() {
 
         setupAdapter()
 
-        val itemTouchHelpCallback = object: ItemTouchHelper.SimpleCallback(
+        val itemTouchHelpCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ){
+        ) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -66,8 +66,8 @@ class ListFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val user = userListAdapter.differ.currentList[position]
                 userViewModel.deleteUser(user)
-                Snackbar.make(view, "User deleted", Snackbar.LENGTH_LONG).apply{
-                    setAction("Undo"){
+                Snackbar.make(view, "User deleted", Snackbar.LENGTH_LONG).apply {
+                    setAction("Undo") {
                         userViewModel.addUser(user)
                     }
                     show()
@@ -87,7 +87,7 @@ class ListFragment : Fragment() {
 
     private fun setupAdapter() {
         userListAdapter = UserListAdapter()
-        binding.recyclerView.apply{
+        binding.recyclerView.apply {
             adapter = userListAdapter
             layoutManager = LinearLayoutManager(activity)
         }
@@ -100,7 +100,7 @@ class ListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_delete){
+        if (item.itemId == R.id.menu_delete) {
             deleteAllUsers()
         }
         return super.onOptionsItemSelected(item)
@@ -111,9 +111,10 @@ class ListFragment : Fragment() {
             .setTitle("Delete all users")
             .setMessage("Are you sure you want to delete all users?")
             .setNegativeButton("No") { _, _ -> }
-            .setPositiveButton("Yes"){_, _ ->
+            .setPositiveButton("Yes") { _, _ ->
                 userViewModel.deleteAllUsers()
-                Toast.makeText(requireContext(), "All users deleted", Toast.LENGTH_SHORT).show()}
+                Toast.makeText(requireContext(), "All users deleted", Toast.LENGTH_SHORT).show()
+            }
             .create().show()
     }
 

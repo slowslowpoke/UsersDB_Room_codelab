@@ -20,7 +20,7 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
                 tvPosition.text = user.position
 
                 clUserListRow.setOnClickListener {
-                    val action = ListFragmentDirections.actionListFragmentToUpdateFragment(user)
+                    val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentUser = user)
                     root.findNavController().navigate(action)
                 }
 
